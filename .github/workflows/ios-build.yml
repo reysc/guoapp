@@ -33,7 +33,9 @@ jobs:
           channel: stable
           cache: true
       - name: Build iOS unsigned IPA
-        run: python3 scripts/build_ios.py ${{ matrix.arguments }}
+        run: |
+          sed -i '' "s/'pub', 'get', '--enforce-lockfile'/'pub', 'get'/" scripts/build_ios.py
+          python3 scripts/build_ios.py ${{ matrix.arguments }}
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.edition }}-ios-unsigned
