@@ -35,6 +35,7 @@ jobs:
       - name: Build iOS unsigned IPA
         run: |
           sed -i '' "s/'pub', 'get', '--enforce-lockfile'/'pub', 'get'/" scripts/build_ios.py
+          sed -i '' "s/'--sequesterRsrc', str(payload)/'--sequesterRsrc', '--keepParent', str(payload)/" scripts/build_ios.py
           python3 scripts/build_ios.py ${{ matrix.arguments }}
       - uses: actions/upload-artifact@v4
         with:
